@@ -1,32 +1,39 @@
-import React, {Component} from 'react';
-var ReactNative = require('react-native');
-var Main = require('./App/Components/Main')
-
-var {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  NavigatorIOS,
-} = ReactNative;
-
-var styles = StyleSheet.create({
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, View, Navigator } from 'react-native';
+import Main from './App/Components/Main';
+const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#111111'
-  },
+    flex: 1
+  }
+//  navigatorStyles: {
+//
+//  }
 });
 
-class Rondeh extends Component {
+export default class Rondeh extends Component {
+
+  _renderScene(route, navigator) {
+    var globalNavigatorProps = {navigator}
+
+switch(route.ident) {
+  case "MainPage":
+  return (
+    <Main
+      {...globalNavigatorProps} />
+  )
+  //case "ActivitiesPage"
+
+}
+
+  }
   render() {
     return (
-      <NavigatorIOS
-        style={styles.container}
-        initialRoute={{
-          title: 'Rendezvous',
-          component: Main
-        }} />
-    );
+      <Navigator
+        initialRoute={{ident: "MainPage"}}
+        ref="appNavigator"
+        style={styles.navigatorStyles}
+        renderScene={this._renderScene} />
+    )
   }
 };
 
